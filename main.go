@@ -5,12 +5,16 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
+	"os"
 )
 
 func main() {
 
 	//p -> postgres
-	password := "200Luckylou2010&"
+	password := os.Getenv("DB_PASSWORD")
+	if password == "" {
+		log.Fatal("Environment variable DB_PASSWORD not set")
+	}
 
 	connStr := fmt.Sprintf("user=postgres password=%s dbname=users_go sslmode=disable", password)
 
